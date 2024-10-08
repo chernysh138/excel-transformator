@@ -1,7 +1,7 @@
 import fs from "fs";
 import xlsx from "xlsx";
 
-const INPUT_FILE_PATH = "./files/horoshop_torgsoft.xlsx";
+const INPUT_FILE_PATH = "./files/horoshop.xlsx";
 const OUTPUT_FILE_PATH = "./files/output.xlsx";
 const OUTPUT_FILE_SHEET_NAME = "Sheet1";
 
@@ -17,14 +17,14 @@ async function main() {
     if (row["Наличие"] === "+") {
       row["Наличие"] = "В наявності";
     }
-    if (String(row["Название_позиции"]).startsWith("Сліпони")) {
-      row["Раздел"] = "Взуття/Сліпони";
-    }
-    if (String(row["Название_позиции"]).startsWith("Черевики")) {
-      row["Раздел"] = "Взуття/Черевики";
-    }
-    // row["Раздел"]=
+    // if (String(row["Название_позиции"]).startsWith("Сліпони")) {
+    //   row["Раздел"] = "Взуття/Сліпони";
+    // }
+    // if (String(row["Название_позиции"]).startsWith("Черевики")) {
+    //   row["Раздел"] = "Взуття/Черевики";
+    // }
     ChangeNameColumn(row, "Код_товара", "Артикул для отображения на сайте");
+
     ChangeNameColumn(row, "Идентификатор_товара", "Артикул");
     ChangeNameColumn(
       row,
@@ -36,16 +36,10 @@ async function main() {
     row["Скидка %"] = String(row["Скидка %"]).split(",")[0];
     ChangeNameColumn(row, "Значение_Характеристики_6", "Цена");
     ChangeNameColumn(row, "Описание", "Описание товара (RU)");
-    ChangeNameColumn(row, "Значение_Характеристики_1", "Цвет");
+    // ChangeNameColumn(row, "Значение_Характеристики_1", "Цвет");
     ChangeNameColumn(row, "Производитель", "Бренд");
 
-    DeletColumn(row, "Тип_товара");
-    DeletColumn(row, "Идентификатор_группы");
-    DeletColumn(row, "ID_группы_разновидностей");
-    DeletColumn(row, "Единица_измерения");
-    DeletColumn(row, "Название_Характеристики");
     row["Розмір"] = String(row["Значение_Характеристики_5"]).split("(")[0];
-    console.log(data);
   }
 
   // Сохранить данные в файле «output.xlsx».
